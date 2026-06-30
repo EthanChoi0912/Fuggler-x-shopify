@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shop.fuggler.com — Shopify DTC Build & Growth Plan</title>
+<style>
+:root{
+--primary:#F3A04C;--accent:#E58522;--panel-bg:#FEFDFC;--card-bg:#fff;
+--text-primary:rgba(0,0,0,.82);--text-secondary:rgba(0,0,0,.55);--text-tertiary:rgba(0,0,0,.38);
+--intensity-4:rgba(0,0,0,.04);--intensity-8:rgba(0,0,0,.08);--intensity-12:rgba(0,0,0,.12);
+font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif
+}
+@media (prefers-color-scheme:dark){
+:root{--panel-bg:#332D28;--card-bg:#2E2E2E;
+--text-primary:rgba(255,255,255,.85);--text-secondary:rgba(255,255,255,.55);--text-tertiary:rgba(255,255,255,.38);
+--intensity-4:rgba(255,255,255,.04);--intensity-8:rgba(255,255,255,.08);--intensity-12:rgba(255,255,255,.12)}
+}
+*{box-sizing:border-box}
+body{margin:0;padding:32px 24px;background:#F4F4F6;color:var(--text-primary)}
+@media (prefers-color-scheme:dark){body{background:#1c1c1d}}
+.container{max-width:980px;margin:0 auto}
+.wrap{display:block;width:100%;color:var(--text-primary);font-size:13px;line-height:1.6}
+.toggle{display:inline-flex;border:.5px solid var(--intensity-12);border-radius:999px;
+background:var(--card-bg);padding:3px;margin-bottom:14px}
+.toggle button{border:0;background:transparent;color:var(--text-secondary);
+padding:6px 14px;border-radius:999px;font-weight:500;font-size:12px;cursor:pointer;transition:.2s}
+.toggle button.active{background:var(--primary);color:#fff}
+.hdr{padding:22px 24px;border:.5px solid var(--intensity-8);border-radius:18px;background:var(--card-bg);margin-bottom:18px}
+.hdr h1{margin:0 0 6px;font-size:21px;font-weight:600;letter-spacing:-.01em}
+.hdr .sub{font-size:13px;color:var(--text-secondary)}
+.hdr .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{height:22px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;
+border:.5px solid var(--intensity-8);background:var(--intensity-4);font-size:11px;color:var(--text-secondary)}
+.card{background:var(--card-bg);border:.5px solid var(--intensity-8);border-radius:18px;padding:20px 22px;margin-bottom:16px}
+.card h2{margin:0 0 4px;font-size:16px;font-weight:600}
+.card .ch2{font-size:12.5px;color:var(--text-secondary);margin-bottom:14px}
+.tl{position:relative;margin:18px 4px 6px}
+.tl .axis{position:absolute;left:0;right:0;top:38px;height:2px;background:var(--intensity-8);border-radius:2px}
+.tl .row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative}
+.tl .node{display:flex;flex-direction:column;align-items:center;text-align:center}
+.tl .dot{width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--intensity-12);margin:30px 0 10px;z-index:2}
+.tl .ph{font-size:10.5px;color:var(--text-tertiary);letter-spacing:.08em;margin-top:-30px;height:14px}
+.tl .pt{font-size:13px;font-weight:600;margin-top:2px}
+.tl .pd{font-size:11px;color:var(--text-secondary);margin-top:2px}
+.tl .pw{font-size:11.5px;color:var(--text-secondary);margin-top:6px;line-height:1.45;max-width:160px}
+.phase{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:16px 0;border-top:.5px solid var(--intensity-8)}
+.phase:first-of-type{border-top:0;padding-top:6px}
+.phase .left .p{font-size:10.5px;color:var(--text-tertiary);letter-spacing:.06em;margin-bottom:4px}
+.phase .left .t{font-size:15px;font-weight:600;color:var(--accent)}
+.phase .left .pd{font-size:11.5px;color:var(--text-secondary);margin-top:8px}
+.phase .right .goal{font-size:13px;color:var(--text-primary);background:var(--intensity-4);
+padding:10px 14px;border-radius:10px;border-left:2px solid var(--accent);margin-bottom:10px}
+.phase .right .gh{font-size:12px;color:var(--text-secondary);font-weight:600;margin:14px 0 4px;letter-spacing:.02em;text-transform:uppercase}
+.phase .right ul{margin:4px 0 0;padding-left:18px;color:var(--text-primary)}
+.phase .right li{font-size:12.5px;margin:3px 0;line-height:1.55}
+.phase .right .out{margin-top:12px;font-size:12px;color:var(--text-secondary);font-style:italic;
+padding-top:10px;border-top:.5px dashed var(--intensity-12)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--text-secondary);margin:4px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot10{width:10px;height:10px;border-radius:3px}
+.chartwrap{position:relative;width:100%;height:140px;margin-top:8px}
+.concl{background:var(--panel-bg);border:.5px solid var(--intensity-8);border-radius:18px;padding:20px 22px}
+.concl h2{margin:0 0 8px;font-size:16px;font-weight:600}
+.concl p{margin:10px 0;color:var(--text-primary)}
+[data-lang-en],[data-lang-zh]{display:none}
+.lang-en [data-lang-en]{display:initial}
+.lang-zh [data-lang-zh]{display:initial}
+.lang-en .phase .right ul[data-lang-zh],.lang-zh .phase .right ul[data-lang-en]{display:none}
+@media (max-width:640px){.phase{grid-template-columns:1fr}.tl .row{grid-template-columns:repeat(2,1fr);gap:18px}.tl .axis{display:none}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="wrap lang-en" id="root">
+
+<div class="toggle" role="tablist">
+<button data-l="en" class="active">English</button>
+<button data-l="zh">繁體中文</button>
+</div>
+
+<div class="hdr">
+<h1>
+<span data-lang-en>shop.fuggler.com — Shopify DTC Build &amp; Growth Plan</span>
+<span data-lang-zh>shop.fuggler.com — Shopify DTC 建設與增長計劃</span>
+</h1>
+<div class="sub">
+<span data-lang-en>Prepared by Fir Ventures for Libertas Brands · June 2026</span>
+<span data-lang-zh>由 Fir Ventures 提呈 Libertas Brands · 2026年6月</span>
+</div>
+<div class="meta">
+<span class="tag" data-lang-en>Platform: Shopify</span><span class="tag" data-lang-zh>平台：Shopify</span>
+<span class="tag" data-lang-en>Fulfilment: SHEIN shared inventory</span><span class="tag" data-lang-zh>履約：SHEIN 共享庫存</span>
+<span class="tag" data-lang-en>Domain migration: fugglerstore.com → shop.fuggler.com</span><span class="tag" data-lang-zh>域名遷移：fugglerstore.com → shop.fuggler.com</span>
+<span class="tag" data-lang-en>Window: Jul 2026 – Dec 2027</span><span class="tag" data-lang-zh>週期：2026年7月 – 2027年12月</span>
+</div>
+</div>
+
+<div class="card">
+<h2>
+<span data-lang-en>At a glance — programme timeline</span>
+<span data-lang-zh>一目了然 — 計劃時間線</span>
+</h2>
+<div class="ch2">
+<span data-lang-en>Four sequenced phases over eighteen months, each with a single testable goal.</span>
+<span data-lang-zh>十八個月四個階段，每階段設一個可驗證的目標。</span>
+</div>
+
+<div class="tl">
+<div class="axis"></div>
+<div class="row">
+<div class="node">
+<div class="ph">PHASE 1</div>
+<div class="dot" style="background:#F3A04C"></div>
+<div class="pt"><span data-lang-en>Foundation</span><span data-lang-zh>基礎建設</span></div>
+<div class="pd">Jul – Aug 2026</div>
+<div class="pw">
+<span data-lang-en>Migrate domain, design the site, build the Shopify store, character search, checkout and SHEIN link.</span>
+<span data-lang-zh>域名遷移、網站設計、搭建 Shopify 商店、角色搜索、結賬與 SHEIN 對接。</span>
+</div>
+</div>
+<div class="node">
+<div class="ph">PHASE 2</div>
+<div class="dot" style="background:#58B2DC"></div>
+<div class="pt"><span data-lang-en>Validation</span><span data-lang-zh>驗證階段</span></div>
+<div class="pd">Aug – Oct 2026</div>
+<div class="pw">
+<span data-lang-en>Run SHEIN fulfilment live, refine UX &amp; search, capture GA4 baseline.</span>
+<span data-lang-zh>實跑 SHEIN 履約，優化 UX 與搜索，建立 GA4 基線。</span>
+</div>
+</div>
+<div class="node">
+<div class="ph">PHASE 3</div>
+<div class="dot" style="background:#00AA90"></div>
+<div class="pt"><span data-lang-en>Growth</span><span data-lang-zh>增長階段</span></div>
+<div class="pd">Oct – Dec 2026</div>
+<div class="pw">
+<span data-lang-en>SEO, Google &amp; Meta ads, KOL, IG/TikTok, email pool.</span>
+<span data-lang-zh>SEO、Google 與 Meta 廣告、KOL、IG/TikTok、郵件池。</span>
+</div>
+</div>
+<div class="node">
+<div class="ph">PHASE 4</div>
+<div class="dot" style="background:#B481BB"></div>
+<div class="pt"><span data-lang-en>Expansion</span><span data-lang-zh>擴張階段</span></div>
+<div class="pd">2027</div>
+<div class="pw">
+<span data-lang-en>Pinterest/Reddit, GEO, localisation, second product line, loyalty.</span>
+<span data-lang-zh>Pinterest/Reddit、GEO、本地化、第二產品線、會員體系。</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="legend" style="margin-top:18px">
+<span><span class="dot10" style="background:#F3A04C"></span><span data-lang-en>P1 Foundation</span><span data-lang-zh>P1 基礎建設</span></span>
+<span><span class="dot10" style="background:#58B2DC"></span><span data-lang-en>P2 Validation</span><span data-lang-zh>P2 驗證</span></span>
+<span><span class="dot10" style="background:#00AA90"></span><span data-lang-en>P3 Growth</span><span data-lang-zh>P3 增長</span></span>
+<span><span class="dot10" style="background:#B481BB"></span><span data-lang-en>P4 Expansion</span><span data-lang-zh>P4 擴張</span></span>
+</div>
+<div class="chartwrap"><canvas id="gantt"></canvas></div>
+</div>
+
+<div class="card">
+<h2><span data-lang-en>Phase-by-phase plan</span><span data-lang-zh>分階段計劃</span></h2>
+<div class="ch2">
+<span data-lang-en>Each phase carries its own goal, deliverables and expected outcome.</span>
+<span data-lang-zh>每階段均有目標、交付內容與預期結果。</span>
+</div>
+
+<div class="phase">
+<div class="left">
+<div class="p">PHASE 1</div>
+<div class="t"><span data-lang-en>Foundation</span><span data-lang-zh>基礎建設</span></div>
+<div class="pd">Jul – Aug 2026<br/><span data-lang-zh>2026年7月 – 8月</span></div>
+</div>
+<div class="right">
+<div class="goal">
+<span data-lang-en><b>Goal —</b> Launch a fully operational, well-designed Shopify-based DTC site on shop.fuggler.com.</span>
+<span data-lang-zh><b>目標 —</b> 於 shop.fuggler.com 上線一個結構完整、設計精良的 Shopify DTC 網站。</span>
+</div>
+
+<div class="gh"><span data-lang-en>Domain migration</span><span data-lang-zh>域名遷移</span></div>
+<ul data-lang-en>
+<li>Migrate the existing store from fugglerstore.com to shop.fuggler.com</li>
+<li>Set up DNS / CNAME records under the fuggler.com parent domain</li>
+<li>301-redirect every legacy fugglerstore.com URL to its shop.fuggler.com counterpart to preserve SEO equity</li>
+<li>Migrate SSL certificate, transactional email sender domain and any existing customer/order records</li>
+<li>Update Google Search Console, Merchant Center and Meta catalogue domain bindings</li>
+</ul>
+<ul data-lang-zh>
+<li>將現有商店由 fugglerstore.com 遷移至 shop.fuggler.com</li>
+<li>於 fuggler.com 主域名下配置 DNS / CNAME 解析</li>
+<li>將 fugglerstore.com 的舊網址逐一 301 重定向至 shop.fuggler.com 對應頁面，保留 SEO 權重</li>
+<li>遷移 SSL 證書、交易郵件發件域名，以及既有客戶與訂單資料</li>
+<li>更新 Google Search Console、Merchant Center 及 Meta 商品目錄的域名綁定</li>
+</ul>
+
+<div class="gh"><span data-lang-en>Website design — UI, structure &amp; visual system</span><span data-lang-zh>網站設計 — UI、結構與視覺體系</span></div>
+<ul data-lang-en>
+<li>Define site information architecture: Home / Shop / Characters / Collections / About / Support</li>
+<li>Build a Fuggler-aligned visual system: typography, colour palette, iconography, on-brand "funny-ugly" tone of voice</li>
+<li>Design key page templates — homepage, collection (PLP), product detail (PDP), cart, checkout, character landing pages</li>
+<li>Mobile-first responsive design covering portrait phone, tablet and desktop breakpoints</li>
+<li>Component library inside Shopify theme: hero, character carousel, product cards, filters, badges, footer</li>
+<li>Accessibility pass (WCAG 2.1 AA): contrast, focus states, alt-text, keyboard navigation</li>
+<li>Performance budget: Core Web Vitals "Good" thresholds on mobile</li>
+</ul>
+<ul data-lang-zh>
+<li>確立資訊架構：首頁 / 商店 / 角色 / 系列 / 關於 / 客服</li>
+<li>建立貼合 Fuggler 品牌的視覺體系：字體、色彩、圖示，以及「Funny-Ugly」品牌語調</li>
+<li>設計核心頁面模板：首頁、分類頁（PLP）、商品詳情頁（PDP）、購物車、結賬頁、角色專屬頁</li>
+<li>移動優先的響應式設計，覆蓋手機、平板與桌面斷點</li>
+<li>在 Shopify 主題中沉澱組件庫：Hero、角色輪播、商品卡、篩選器、徽章、頁尾</li>
+<li>無障礙合規（WCAG 2.1 AA）：對比度、焦點狀態、Alt 文字、鍵盤可達</li>
+<li>性能預算：移動端 Core Web Vitals 達「Good」門檻</li>
+</ul>
+
+<div class="gh"><span data-lang-en>Store build &amp; integrations</span><span data-lang-zh>商店搭建與系統對接</span></div>
+<ul data-lang-en>
+<li>shop.fuggler.com officially live</li>
+<li>Character Search functionality</li>
+<li>Shop / catalogue function</li>
+<li>Checkout flow (Shopify Payments)</li>
+<li>SHEIN shared-inventory integration</li>
+<li>Core product categories live</li>
+</ul>
+<ul data-lang-zh>
+<li>shop.fuggler.com 正式上線</li>
+<li>角色搜索功能</li>
+<li>商城功能</li>
+<li>結賬功能（Shopify Payments）</li>
+<li>與 SHEIN 庫存打通（共享庫存）</li>
+<li>核心產品分類上線</li>
+</ul>
+
+<div class="out">
+<span data-lang-en>Expected outcome — A fully operational, on-brand site able to absorb traffic from the Fuggler hub site, with all legacy fugglerstore.com equity preserved.</span>
+<span data-lang-zh>預期結果 — 網站全面可運行、視覺與品牌一致，可承接 Fuggler 主站流量，且 fugglerstore.com 的既有 SEO 權重得以保留。</span>
+</div>
+</div>
+</div>
+
+<div class="phase">
+<div class="left">
+<div class="p">PHASE 2</div>
+<div class="t"><span data-lang-en>Validation</span><span data-lang-zh>驗證階段</span></div>
+<div class="pd">Aug – Oct 2026<br/><span data-lang-zh>2026年8月 – 10月</span></div>
+</div>
+<div class="right">
+<div class="goal">
+<span data-lang-en><b>Goal —</b> Validate operations and user experience end-to-end.</span>
+<span data-lang-zh><b>目標 —</b> 驗證整體運營與用戶體驗流程。</span>
+</div>
+<ul data-lang-en>
+<li>Run SHEIN fulfilment in live conditions</li>
+<li>Test logistics &amp; delivery</li>
+<li>Optimise UX and site navigation</li>
+<li>Optimise search functionality</li>
+<li>Capture GA4 data</li>
+<li>Data analysis: top characters, top products, pricing performance, country distribution, conversion rate</li>
+</ul>
+<ul data-lang-zh>
+<li>運行 SHEIN 履約體系</li>
+<li>測試物流流程</li>
+<li>優化用戶體驗（UX）</li>
+<li>優化網站導航</li>
+<li>優化搜索功能</li>
+<li>收集 GA4 數據</li>
+<li>數據分析：熱門角色、熱門產品、定價表現、國家分佈、轉化率</li>
+</ul>
+<div class="out">
+<span data-lang-en>Expected outcome — Stable fulfilment, dependable UX, and a data-driven product strategy.</span>
+<span data-lang-zh>預期結果 — 履約體系穩定、用戶體驗可靠、形成數據驅動的產品策略。</span>
+</div>
+</div>
+</div>
+
+<div class="phase">
+<div class="left">
+<div class="p">PHASE 3</div>
+<div class="t"><span data-lang-en>Growth</span><span data-lang-zh>增長階段</span></div>
+<div class="pd">Oct – Dec 2026<br/><span data-lang-zh>2026年10月 – 12月</span></div>
+</div>
+<div class="right">
+<div class="goal">
+<span data-lang-en><b>Goal —</b> Drive high-quality traffic and lift conversion.</span>
+<span data-lang-zh><b>目標 —</b> 提升高質量流量。</span>
+</div>
+<ul data-lang-en>
+<li>SEO optimisation</li>
+<li>Google Ads</li>
+<li>Meta Ads</li>
+<li>KOL partnerships</li>
+<li>Instagram operations</li>
+<li>TikTok operations</li>
+<li>Homepage refined based on social media performance</li>
+<li>Channel social traffic back to the site</li>
+<li>Build an email-subscriber pool</li>
+</ul>
+<ul data-lang-zh>
+<li>SEO 優化</li>
+<li>Google 廣告投放</li>
+<li>Meta 廣告投放</li>
+<li>KOL 合作</li>
+<li>Instagram 運營</li>
+<li>TikTok 運營</li>
+<li>基於社交媒體表現優化首頁</li>
+<li>引導社交流量回流網站</li>
+<li>建立郵件訂閱用戶池</li>
+</ul>
+<div class="out">
+<span data-lang-en>Expected outcome — Sustained DTC traffic growth, lift in conversion, and an expanding first-party database.</span>
+<span data-lang-zh>預期結果 — DTC 流量持續增長、轉化率提升、用戶數據庫不斷擴大。</span>
+</div>
+</div>
+</div>
+
+<div class="phase">
+<div class="left">
+<div class="p">PHASE 4</div>
+<div class="t"><span data-lang-en>Expansion</span><span data-lang-zh>擴張階段</span></div>
+<div class="pd">2027<br/><span data-lang-zh>2027年全年</span></div>
+</div>
+<div class="right">
+<div class="goal">
+<span data-lang-en><b>Goal —</b> Scale the international market footprint.</span>
+<span data-lang-zh><b>目標 —</b> 拓展國際市場規模。</span>
+</div>
+<ul data-lang-en>
+<li>Pinterest operations</li>
+<li>Reddit community operations</li>
+<li>AI search / GEO optimisation</li>
+<li>Localised market operations</li>
+<li>Second product line</li>
+<li>Membership programme</li>
+<li>User retention optimisation</li>
+</ul>
+<ul data-lang-zh>
+<li>Pinterest 運營</li>
+<li>Reddit 社區運營</li>
+<li>AI 搜索 / GEO 優化</li>
+<li>本地化市場運營</li>
+<li>第二產品線拓展</li>
+<li>會員體系建設</li>
+<li>用戶留存優化</li>
+</ul>
+<div class="out">
+<span data-lang-en>Expected outcome — Growth in new international markets, higher repeat-purchase rate, and a second growth curve beyond plush.</span>
+<span data-lang-zh>預期結果 — 新國際市場增長、複購率提升、在毛絨玩具之外形成第二增長曲線。</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="concl">
+<h2><span data-lang-en>Conclusion</span><span data-lang-zh>結論</span></h2>
+<p>
+<span data-lang-en>The plan moves the store from fugglerstore.com to shop.fuggler.com with a clean, on-brand Shopify launch in August 2026, through a disciplined validation window on SHEIN-backed fulfilment, into a paid and organic growth push across Q4 2026, and finally an international expansion year in 2027. Each phase carries one testable goal, so Libertas can sign off on outcomes rather than activity.</span>
+<span data-lang-zh>本計劃將商店由 fugglerstore.com 遷移至 shop.fuggler.com，於 2026 年 8 月以品牌一致的 Shopify 形態上線；隨後進入基於 SHEIN 履約的驗證期、2026 年第四季度的付費與自然增長階段，並於 2027 年完成國際擴張。每階段均設有可驗證的目標，便於 Libertas 以結果而非活動進行驗收。</span>
+</p>
+<p>
+<span data-lang-en>Critical dependencies — clean 301 redirect map from fugglerstore.com, SHEIN inventory API readiness, Shopify Markets setup for the UK / EU / US, GA4 and Shopify analytics governance, and a content calendar aligned with the Fuggler brand voice on the hub site.</span>
+<span data-lang-zh>關鍵依賴 — 由 fugglerstore.com 完整遷移的 301 重定向清單、SHEIN 庫存 API 就緒、Shopify Markets（英／歐／美）配置、GA4 與 Shopify 數據治理，以及與 Fuggler 母站品牌語調一致的內容日曆。</span>
+</p>
+<p>
+<span data-lang-en>Recommended next step — confirm Phase 1 scope (domain migration cut-over date, design sign-off and SHEIN integration spec) by mid-July 2026 so the August go-live remains on the critical path. Quantitative targets will be set jointly with Libertas after the first four weeks of live GA4 data, rather than committed to upfront without historical baselines.</span>
+<span data-lang-zh>建議下一步 — 於 2026 年 7 月中前確認第一階段範圍（域名切換日期、設計定稿與 SHEIN 對接規格），確保 8 月上線處於關鍵路徑。具體量化目標將於上線首四週 GA4 數據沉澱後與 Libertas 共同設定，而非在無歷史基線情況下預先承諾。</span>
+</p>
+</div>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+(function(){
+  var root=document.getElementById('root');
+  root.querySelectorAll('.toggle button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var l=b.getAttribute('data-l');
+      root.classList.remove('lang-en','lang-zh');
+      root.classList.add('lang-'+l);
+      root.querySelectorAll('.toggle button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+    });
+  });
+  function init(){
+    var months=['Jul 26','Aug','Sep','Oct','Nov','Dec','Q1 27','Q2 27','Q3 27','Q4 27'];
+    var bar=function(s,l){return months.map(function(_,i){return i>=s&&i<s+l?1:null})};
+    new Chart(document.getElementById('gantt'),{
+      type:'bar',
+      data:{labels:months,datasets:[
+        {label:'P1',data:bar(0,2),backgroundColor:'#F3A04C',stack:'s',borderRadius:6,barPercentage:.9},
+        {label:'P2',data:bar(1,3),backgroundColor:'#58B2DC',stack:'s',borderRadius:6,barPercentage:.9},
+        {label:'P3',data:bar(3,3),backgroundColor:'#00AA90',stack:'s',borderRadius:6,barPercentage:.9},
+        {label:'P4',data:bar(6,4),backgroundColor:'#B481BB',stack:'s',borderRadius:6,barPercentage:.9}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label}}}},
+        scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10.5},color:'rgba(127,127,127,.85)'}},
+                y:{stacked:true,display:false,max:1.2}}}
+    });
+  }
+  if(window.Chart)init();else{
+    var s=document.querySelector('script[src*="chart.umd"]');
+    if(s)s.addEventListener('load',init);
+  }
+})();
+</script>
+</body>
+</html>
